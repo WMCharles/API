@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-j_u%$c-aas6w@52)=nbat=c(2k%4-lm08@f&_$o22274#odvlt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,10 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'post',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,3 +138,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 django_heroku.settings(locals())
 
 CSRF_TRUSTED_ORIGINS = ['https://damp-sierra-18589.herokuapp.com']
+
+CORS_ALLOW_ALL_ORIGINS = True
