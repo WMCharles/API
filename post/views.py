@@ -1,5 +1,3 @@
-import imp
-import stat
 from .models import Post
 from .serializers import PostSerializer
 from django.http import JsonResponse
