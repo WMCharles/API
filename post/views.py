@@ -2,20 +2,19 @@ from .models import Post
 from .serializers import PostSerializer
 from django.http import JsonResponse
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from rest_framework import status
+from rest_framework.views import APIView
 
-@api_view(['GET', 'POST'])
-def get_posts(request):
+class PostList(APIView):
 
-    if request.method == 'GET':
-        posts = Post.objects.all()
-        serializer = PostSerializer(posts, many = True)
-        return JsonResponse(serializer.data, safe=False)
-    
-    if request.method == 'POST':
-        serializer = PostSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, format=None):
+        queryset = Post.objects.all()
+        serializer = PostSerializer(queryset, context={"request": request}, many=True)
+        return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False) 
+
+    def post(self, request, format=None):
+       serializer = PostSerializer(data=request.DATA)
+       if serializer.is_valid():
+           serializer.save()
+           return Response(serializer.data, status=status.HTTP_201_CREATED)
+       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
