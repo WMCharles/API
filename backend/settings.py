@@ -132,3 +132,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')  
 
 django_heroku.settings(locals())
+
+CSRF_TRUSTED_ORIGINS = ['https://damp-sierra-18589.herokuapp.com/', 'https://*.127.0.0.1']
