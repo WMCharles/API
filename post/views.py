@@ -13,7 +13,7 @@ class PostList(APIView):
         return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False) 
 
     def post(self, request, format=None):
-       serializer = PostSerializer(data=request.DATA)
+       serializer = PostSerializer(data=request.data)
        if serializer.is_valid():
            serializer.save()
            return Response(serializer.data, status=status.HTTP_201_CREATED)
